@@ -31,7 +31,7 @@ def llm_generate_titles(
     titles_str = llm_generate(prompt)
     titles = []
     for title in titles_str.split("\n"):
-        sep_index = title.index('. ') + 2
+        sep_index = title.index('. ') + 1
         title = title.strip()[sep_index:]
         title = title.replace('.', '')
         title = title.replace('\n', '')

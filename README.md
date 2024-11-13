@@ -18,7 +18,7 @@ This project generates a PowerPoint presentation based on user-provided descript
 
    ```bash
    git clone --recurse-submodules https://github.com/ai-forever/presentations.git
-   cd presentations
+   cd slides_generator
    ```
 
 2. **Install dependencies**:

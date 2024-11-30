@@ -35,19 +35,16 @@ This project generates a PowerPoint presentation based on user-provided descript
     pip install -r requirements.txt
    ```
 
-3. **Create a .env file** in the root directory with Groq credentials:
+3. **Create a .env file** in the root directory with Groq and HF credentials:
 
-Here is the website (https://console.groq.com/keys) to get access token.
+Here is the website (https://console.groq.com/keys) to get Groq access token.
 
    ```plaintext
    GROQ_API_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
-
-
-4. **Run the FastAPI server** for the image generation API:
-
-   ```bash
-   python src/kandinsky.py
+Here is the website (https://huggingface.co/settings/tokens) to get HF access token.
+   ```plaintext
+   HUGGINGFACE_API_TOKEN = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
 ### Running the Script
@@ -60,15 +57,6 @@ python main.py
 
 This will generate a presentation based on the provided description and save it in the `logs` directory with a timestamp.
 
-## Examples
-
-```bash
-python main.py 
-```
-
-```bash
-python main.py 
-```
 
 ## Architecture
 

@@ -4,6 +4,9 @@
 ## Overview
 
 This project generates a PowerPoint presentation based on user-provided descriptions. It leverages language models to generate text content and an image generation API to create images for the slides. The architecture is modular, allowing for easy extension and customization of the text and image generation components.
+Modified & Rebuilt by R.A.
+Model for text generation: Llama3.1-8B via Groq
+Model for text-to-image: stable-diffusion-3-medium-diffusers via HF
 
 ## How to Use
 
@@ -21,19 +24,23 @@ This project generates a PowerPoint presentation based on user-provided descript
    cd slides_generator
    ```
 
-2. **Install dependencies**:
+2. **Create virtual env**:
 
    ```bash
-   pip install -r requirements.txt
+    python3 -m venv venv
+    # On Windows:
+    venv\Scripts\activate
+    # On macOS/Linux:
+    source venv/bin/activate
+    pip install -r requirements.txt
    ```
 
-3. **Create a .env file** in the root directory with GigaChat credentials:
+3. **Create a .env file** in the root directory with Groq credentials:
 
-Here is the [documentation](https://developers.sber.ru/portal/products/gigachat-api) on how to get access token.
+Here is the website (https://console.groq.com/keys) to get access token.
 
    ```plaintext
-   AUTH_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   COOKIE=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   GROQ_API_KEY = XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    ```
 
 
@@ -48,7 +55,7 @@ Here is the [documentation](https://developers.sber.ru/portal/products/gigachat-
 To generate a presentation, use the following command:
 
 ```bash
-python main.py -d "Description of the presentation"  -l 'en'
+python main.py
 ```
 
 This will generate a presentation based on the provided description and save it in the `logs` directory with a timestamp.
@@ -56,14 +63,12 @@ This will generate a presentation based on the provided description and save it 
 ## Examples
 
 ```bash
-python main.py -d "Сгенерируй презентацию про планеты солнечной системы" -l 'ru'
+python main.py 
 ```
 
 ```bash
-python main.py -d "Generate presentation about planets of Solar system" -l 'en'
+python main.py 
 ```
-
-This command will create a presentation on the topic "Planets of the Solar System" using the configured text and image generation functions.
 
 ## Architecture
 

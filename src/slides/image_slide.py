@@ -3,6 +3,7 @@ from pptx.util import Inches
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR, MSO_AUTO_SIZE
+from pptx.slide import Slide
 
 from typing import List, Callable, Optional
 from PIL import Image
@@ -20,7 +21,7 @@ def generate_text_title_image_right(
     picture_path: str,
     font:Font, 
     text_font_coeff:float=0.6,
-) -> None:
+) -> Slide:
     """
     Add a slide with title, text on the left, and picture on the right.
 
@@ -32,7 +33,7 @@ def generate_text_title_image_right(
     font (Font): Font object to manage font styles and paths.
     text_font_coeff (float): Coefficient to adjust the font size of the text relative to the title (default is 0.6).
     Returns:
-    None
+    Slide
     """
 
     slide_layout = presentation.slide_layouts[6]
@@ -129,6 +130,8 @@ def generate_text_title_image_right(
             pass
             
     
+    return slide
+
 def generate_text_title_image_left(
     presentation: Presentation,
     title: str,
@@ -136,7 +139,7 @@ def generate_text_title_image_left(
     picture_path: str,
     font:Font,
     text_font_coeff:float=0.6,
-) -> None:
+) -> Slide:
     """
     Add a slide with title, text on the left, and picture on the right.
 
@@ -150,7 +153,7 @@ def generate_text_title_image_left(
             size of the text relative to the title (default is 0.6).
     
     Returns:
-        None
+        Slide
     """
 
     slide_layout = presentation.slide_layouts[6]
@@ -247,6 +250,7 @@ def generate_text_title_image_left(
         except: 
             pass
            
+    return slide
 
 def generate_image_slide(
     presentation: Presentation, 
@@ -255,9 +259,9 @@ def generate_image_slide(
     picture_path: str,
     font: Font,
     text_font_coeff: float = 0.6,
-) -> None:
+) -> Slide:
     """
-    Generate a slide with a title, text, and an image, choosing the layout randomly.
+    Generate a slide with a title, text, and an image.
 
     This function creates a slide in a PowerPoint presentation that includes a title, 
     text, and an image. The layout is chosen randomly between two options: 
@@ -273,13 +277,13 @@ def generate_image_slide(
                                            relative to the title (default is 0.65).
 
     Returns:
-        None
+        Slide
     """
     gen_func = random.choice([
         generate_text_title_image_right,
         generate_text_title_image_left,
     ])
-    gen_func(
+    return gen_func(
         presentation=presentation,
         title=title,
         text=text,

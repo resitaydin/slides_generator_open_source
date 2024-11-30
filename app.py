@@ -1,41 +1,46 @@
+# app.py - WE DON'T NEED THIS FILE SINCE IT IS THE INTERFACE
 import gradio as gr
 import time
 from src.constructor import generate_presentation 
-from src.prompt_configs import en_gigachat_config, ru_gigachat_config
-from src.gigachat import giga_generate
-from src.kandinsky import api_k31_generate
+from src.prompt_configs import en_gigachat_config
+from src.generate_text_LLM import giga_generate
+from src.generate_image import api_k31_generate
 from src.font import Font
 
 logs_dir = "logs"
 fonts_dir = "fonts"
 
-def create_presentation(description: str, language: str):
-    # Select the appropriate prompt configuration based on the selected language
-    if language == "English":
-        prompt_config = en_gigachat_config
-    elif language == "Русский":
-        prompt_config = ru_gigachat_config
-    else: 
-        # set default to prevent interruptions in unexpected scenario
-        prompt_config = en_gigachat_config
-        
+def create_presentation(description: str) -> str:
+    """
+    Generate a presentation based on the given description.
+    
+    Args:
+        description (str): Description of the presentation to generate
+    
+    Returns:
+        str: Path to the generated PowerPoint file
+    """
+    fonts_dir = "./fonts"
+    logs_dir = "./logs"
+    
     font = Font(fonts_dir)
     font.set_random_font() 
     
     output_dir = f'{logs_dir}/{int(time.time())}'
 
+    # Initialize LLM Client
+    llm_client = LLMClient(model_version="llama-3.1-8b-instant")
+    
     generate_presentation(
-        llm_generate=giga_generate, 
+        llm_generate=llm_client.generate, 
         generate_image=api_k31_generate,
-        prompt_config=prompt_config, 
+        prompt_config=en_gigachat_config, 
         description=description,
         font=font,
         output_dir=output_dir,
     )
 
-    filename = f'{output_dir}/presentation.pptx'
-    
-    return filename
+    return f'{output_dir}/presentation.pptx'
 
 # Updated examples to include language selection
 examples = [

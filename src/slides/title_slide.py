@@ -3,6 +3,7 @@ from pptx.util import Inches
 from pptx.oxml.xmlchemy import OxmlElement
 from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR, MSO_AUTO_SIZE
+from pptx.slide import Slide
 
 import random
 import os
@@ -19,9 +20,9 @@ from src.font import Font
 def generate_title_slide(
     presentation: Presentation,
     title: str,
-    font:Font, 
+    font: Font, 
     background_path: str = None, 
-) -> None:
+) -> Slide:
     """
     Add a slide with title, text placeholders on the blurred background image.
 
@@ -32,7 +33,7 @@ def generate_title_slide(
         background_path (str): Path to the background image for the slide
         font (Font): Font object to manage font styles and paths.
     Returns:
-        None
+        Slide: The created slide object
     """
 
     slide_layout = presentation.slide_layouts[6]
@@ -76,7 +77,7 @@ def generate_title_slide(
     title_paragraph.alignment = PP_ALIGN.CENTER
     title_paragraph.text = title
     
-    for max_size in range(font.max_size)[::-5]: 
+    for max_size in range(font.max_size, 0, -5): 
         try: 
             title_frame.fit_text(
                 font_file=font.bold, 
@@ -87,8 +88,10 @@ def generate_title_slide(
         except TypeError: 
             pass
 
-    # settings white color and transparency to title shape
+    # Set white color and transparency to title shape
     title_fill = title_box.fill
     title_fill.solid()
     title_fill.fore_color.rgb = RGBColor(255, 255, 255)
     set_shape_transparency(title_box, 0.5)
+
+    return slide

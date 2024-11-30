@@ -4,9 +4,9 @@
 ## Overview
 
 This project generates a PowerPoint presentation based on user-provided descriptions. It leverages language models to generate text content and an image generation API to create images for the slides. The architecture is modular, allowing for easy extension and customization of the text and image generation components.
-Modified & Rebuilt by R.A.
-Model for text generation: Llama3.1-8B via Groq
-Model for text-to-image: stable-diffusion-3-medium-diffusers via HF
+#### Modified & Rebuilt by R.A.
+#### Model for text generation: Llama3.1-8B via Groq
+#### Model for text-to-image: stable-diffusion-3-medium-diffusers via HF
 
 ## How to Use
 
